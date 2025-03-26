@@ -1,0 +1,25 @@
+name: Minecraft Server Status Updater
+
+on:
+  schedule:
+    - cron: '*/1 * * * *'  # Runs every 1 minute
+  workflow_dispatch:  # Allows manual trigger
+
+jobs:
+  update_status:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: pip install requests mcstatus
+
+      - name: Run Script
+        run: python mcstatus.py
